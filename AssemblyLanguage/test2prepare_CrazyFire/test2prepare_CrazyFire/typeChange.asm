@@ -22,22 +22,23 @@ typeChange PROC
 
 	mov outputNum, 0
 	mov eax, [ebx]
-	mov loopTime, eax				; make ebx the number of stringLength
+	mov loopTime, eax				; make loopTime the stringLength
 	mov ebx, -1
 	changeWork:
 		inc ebx
-		cmp ebx, loopTime
-		jge negativeCheck
+		cmp ebx, loopTime			; use ebx and loopTime to judge for string check finish
+		jge negativeCheck			; check if the interger is negative number
 		
-		mov al, 0
-		mov al, [esi + ebx]
+		mov eax, 0					; clean the eax ragister
+		mov al, [esi + ebx]			; mov the char to al
 
-		call IsDigit
-		jnz checkNegative
+		call IsDigit				; check if is number
+		jnz checkNegative			; check if is "-"
 
-		mov al, [esi + ebx]
-		sub al, '0'
-		mov ecx, outputNum
+		mov eax, 0
+		mov al, [esi + ebx]			; mov char to al again to make sure the al is not change by work
+		sub al, '0'					; change the char to integer
+		mov ecx, outputNum			; outputNum is the number is going to print
 		imul ecx, 10
 		mov outputNum, ecx
 		add outputNum, eax
